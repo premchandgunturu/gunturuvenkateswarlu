@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gunturu Venkateswarlu | Portfolio</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
         }
     </script>
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -119,11 +123,14 @@
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased overflow-x-hidden transition-colors duration-500">
 
+    <!-- Adaptive Interactive Network Canvas Background -->
     <div id="canvas-container"></div>
 
+    <!-- Minimal Premium Glassmorphic Navbar -->
     <nav class="sticky top-0 z-50 w-full border-b border-slate-200/40 dark:border-slate-800/40 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl transition-all duration-300">
         <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
             
+            <!-- Brand Identity Structure -->
             <a href="#" class="flex items-center gap-3 font-extrabold text-lg tracking-tight text-slate-900 dark:text-white group">
                 <div class="relative w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
                     <i class="fa-solid fa-code text-xs"></i>
@@ -131,6 +138,7 @@
                 <span class="text-slate-900 dark:text-white font-extrabold text-lg tracking-tight">G. Venkateswarlu</span>
             </a>
             
+            <!-- Desktop Actions Navigation Link Menu -->
             <div class="hidden md:flex items-center space-x-1 bg-slate-100/60 dark:bg-slate-900/40 border border-slate-200/30 dark:border-slate-800/30 p-1.5 rounded-2xl">
                 <a href="#home" class="nav-link text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Home</a>
                 <a href="#about" class="nav-link text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">About</a>
@@ -151,6 +159,7 @@
             </div>
         </div>
         
+        <!-- Mobile Expandable Dropdown Container -->
         <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 py-4 space-y-1.5 shadow-xl text-xs font-bold uppercase tracking-wider">
             <a href="#home" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900">Home</a>
             <a href="#about" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900">About</a>
@@ -162,56 +171,60 @@
         </div>
     </nav>
 
-    <section id="home" class="py-12 lg:py-24 relative overflow-hidden">
-        <div class="max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="reveal-element grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <!-- FIXED & MOB-IMPROVED: Immersive Full-Screen Mobile Introduction Layout Grid -->
+    <section id="home" class="h-[calc(100vh-80px)] lg:h-auto lg:py-24 flex flex-col justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="reveal-element grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 
-                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
-                    <div class="space-y-4">
-                        <span class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-2xl shadow-sm">
-                            <span class="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse"></span> ACE Engineering Academy
+                <!-- Left Content Column: Fills the entire view on mobile screen load -->
+                <div class="lg:col-span-7 space-y-6 lg:space-y-8 text-center lg:text-left">
+                    <div class="space-y-3 sm:space-y-4">
+                        <span class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-[11px] sm:text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl shadow-sm">
+                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse"></span> ACE Engineering Academy
                         </span>
                         
-                        <h1 id="typing-heading" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15] glow-headline typing-cursor min-h-[60px] lg:min-h-[110px]">
-                            </h1>
+                        <h1 id="typing-heading" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.2] lg:leading-[1.15] glow-headline typing-cursor min-h-[75px] sm:min-h-[60px] lg:min-h-[110px]">
+                            <!-- Text injected dynamically via typing core script engine -->
+                        </h1>
 
                         <div class="h-px w-20 bg-blue-600 dark:bg-blue-400 mx-auto lg:mx-0"></div>
 
-                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                        <p class="text-xs sm:text-sm lg:text-base text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium px-2 sm:px-0">
                             Senior computer science academician with an expansive background managing advanced distributed systems architecture. Specializing in computer network topology optimizations and pedagogical engineering instruction.
                         </p>
                     </div>
 
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                        <a href="#contact" class="h-11 px-5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 font-bold transition-all flex items-center gap-2 text-sm shadow-md">
+                    <!-- CTA Row Buttons Alignment -->
+                    <div class="flex flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
+                        <a href="#contact" class="flex-1 sm:flex-initial h-11 px-5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 font-bold transition-all flex items-center justify-center gap-2 text-xs sm:text-sm shadow-md whitespace-nowrap">
                             Connect Now <i class="fa-solid fa-paper-plane text-xs"></i>
                         </a>
-                        <a href="#publications" class="h-11 px-5 rounded-xl border border-slate-300 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900 font-bold transition-all flex items-center gap-2 text-sm">
-                            <i class="fa-solid fa-book-open text-xs"></i> View Research Papers
+                        <a href="#publications" class="flex-1 sm:flex-initial h-11 px-5 rounded-xl border border-slate-300 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900 font-bold transition-all flex items-center justify-center gap-2 text-xs sm:text-sm whitespace-nowrap">
+                            <i class="fa-solid fa-book-open text-xs"></i> Research Papers
                         </a>
                     </div>
 
-                    <div class="pt-4 border-t border-slate-200/50 dark:border-slate-800/50 max-w-xs mx-auto lg:mx-0 flex items-center justify-center lg:justify-start gap-5">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Academic Networks:</span>
-                        <div class="flex items-center gap-3.5 text-slate-500 dark:text-slate-400 text-base">
-                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 transform hover:-translate-y-0.5 transition-all"><i class="fa-brands fa-linkedin"></i></a>
-                            <a href="#" class="hover:text-slate-900 dark:hover:text-white transform hover:-translate-y-0.5 transition-all"><i class="fa-brands fa-github"></i></a>
-                            <a href="#" class="hover:text-emerald-600 dark:hover:text-emerald-400 transform hover:-translate-y-0.5 transition-all"><i class="fa-brands fa-orcid"></i></a>
-                            <a href="#" class="hover:text-blue-500 dark:hover:text-blue-300 transform hover:-translate-y-0.5 transition-all"><i class="fa-solid fa-graduation-cap"></i></a>
+                    <!-- Social Network Shelf icons alignment -->
+                    <div class="pt-4 border-t border-slate-200/50 dark:border-slate-800/50 max-w-xs sm:max-w-sm mx-auto lg:mx-0 flex items-center justify-center lg:justify-start gap-4">
+                        <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Links:</span>
+                        <div class="flex items-center gap-4 text-slate-500 dark:text-slate-400 text-lg sm:text-base">
+                            <a href="#" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-800/40 flex items-center justify-center hover:text-blue-600 dark:hover:text-blue-400 transform hover:-translate-y-0.5 transition-all" aria-label="LinkedIn Profile"><i class="fa-brands fa-linkedin text-sm"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-800/40 flex items-center justify-center hover:text-slate-900 dark:hover:text-white transform hover:-translate-y-0.5 transition-all" aria-label="GitHub Profile"><i class="fa-brands fa-github text-sm"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-800/40 flex items-center justify-center hover:text-emerald-600 dark:hover:text-emerald-400 transform hover:-translate-y-0.5 transition-all" aria-label="ORCID ID"><i class="fa-brands fa-orcid text-sm"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-800/40 flex items-center justify-center hover:text-blue-500 dark:hover:text-blue-300 transform hover:-translate-y-0.5 transition-all" aria-label="Google Scholar"><i class="fa-solid fa-graduation-cap text-xs"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <div class="lg:col-span-5 w-full flex flex-col items-center lg:items-end gap-5">
-                    <div class="relative w-60 h-76 sm:w-64 sm:h-84 group">
+                <!-- Right Column: Extracted completely below screen viewport fold natively on Mobile layouts (5/12 Columns) -->
+                <div class="hidden lg:col-span-5 lg:flex flex-col items-center lg:items-end gap-5">
+                    <div class="relative w-60 h-76 sm:w-64 sm:h-84 group flex-shrink-0">
                         <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-[2rem] transform rotate-6 scale-95 opacity-20 group-hover:rotate-12 transition-all duration-500"></div>
                         <div class="absolute inset-0 border border-blue-500/20 rounded-[2rem] transform -rotate-3 scale-100 opacity-40 group-hover:rotate-0 transition-all duration-500"></div>
-                        
                         <div class="w-full h-full rounded-[2rem] overflow-hidden border-4 border-white dark:border-slate-900 shadow-2xl bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 relative">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdSz_lLkUit2HinZ5T8kuDxjK_y1McXsSYEA&s" alt="Gunturu Venkateswarlu Profile Photograph" class="w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105">
                         </div>
                     </div>
-
                     <div class="w-60 sm:w-64 bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-800/60 rounded-2xl p-4 shadow-xl text-center lg:text-left backdrop-blur-md">
                         <h2 class="text-base font-extrabold text-slate-900 dark:text-white leading-tight">Prof. Gunturu Venkateswarlu</h2>
                         <div class="flex items-center justify-center lg:justify-start gap-1.5 mt-2">
@@ -225,28 +238,51 @@
         </div>
     </section>
 
+    <!-- NEW SECTION WRAPPER: Renders Profile Image Context Board as step-down asset stream on Mobile viewports -->
+    <section class="block lg:hidden py-12 border-t border-slate-200/30 dark:border-slate-800/30">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col items-center gap-5">
+            <div class="relative w-48 h-60 sm:w-64 sm:h-84 group flex-shrink-0">
+                <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-[2rem] transform rotate-6 scale-95 opacity-20 group-hover:rotate-12 transition-all duration-500"></div>
+                <div class="absolute inset-0 border border-blue-500/20 rounded-[2rem] transform -rotate-3 scale-100 opacity-40 group-hover:rotate-0 transition-all duration-500"></div>
+                <div class="w-full h-full rounded-[2rem] overflow-hidden border-4 border-white dark:border-slate-900 shadow-2xl bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 relative">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdSz_lLkUit2HinZ5T8kuDxjK_y1McXsSYEA&s" alt="Gunturu Venkateswarlu Profile Photograph" class="w-full h-full object-cover object-center">
+                </div>
+            </div>
+            <div class="w-48 sm:w-64 bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-800/60 rounded-2xl p-3.5 shadow-xl text-center backdrop-blur-md">
+                <h2 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-tight">Prof. Gunturu Venkateswarlu</h2>
+                <div class="flex items-center justify-center gap-1.5 mt-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">ACE Engineering Academy</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPLETELY OVERHAULED & IMPROVED ABOUT SECTION: High-Impact Dashboard Layout -->
     <section id="about" class="py-20 border-t border-slate-200/30 dark:border-slate-800/30">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
             <div class="reveal-element grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
                 
+                <!-- Left Professional Biography Narrative -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                     <div class="space-y-3">
-                        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">About Me</h2>
-                        <div class="w-12 h-1.5 bg-blue-600 mx-auto lg:mx-0 mt-4 rounded-full shadow-sm"></div>
+                        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">About & Academic Mission</h2>
+                        <div class="w-12 h-1.5 bg-blue-600 mx-auto lg:mx-0 mt-4 rounded-full shadow-sm shadow-blue-500/50"></div>
                     </div>
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed font-medium text-sm sm:text-base">
-                        Currently operating within the computer engineering instruction domains at <span class="text-blue-600 dark:text-blue-400 font-bold">ACE Engineering Academy</span>, my primary pedagogical objective centers on securing communications protocols and computational efficiency parameters.
+                        Currently serving within the instructional ranks at <span class="text-blue-600 dark:text-blue-400 font-bold">ACE Engineering Academy</span>, my primary pedagogical objective centers on simplifying hardware routing mechanics and information flows. 
                     </p>
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed font-medium text-sm sm:text-base">
-                        Over an academic tenure spanning <span class="text-slate-900 dark:text-white font-bold bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">18 years of professional experience</span>, I have directed laboratory architectures and comprehensive university instruction, supporting student tracks through complex layers of network engineering designs.
+                        Over an distinguished tenure spanning <span class="text-slate-900 dark:text-white font-bold bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">18 years of experience</span>, I have coordinated extensive lab deployments and technical course configurations, guiding future engineering graduates through the complex matrices of modern computer science and networking logic.
                     </p>
                     
+                    <!-- Research Interest Clusters Tag Nodes Grid -->
                     <div class="space-y-3 pt-2 text-left">
-                        <h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">Core Curricular Domains</h3>
+                        <h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">Core Technical Specializations</h3>
                         <div class="flex flex-wrap gap-3">
                             <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 shadow-sm flex items-center gap-2.5">
                                 <div class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center"><i class="fa-solid fa-wifi text-[10px]"></i></div>
-                                Wireless Networks & Ad-Hoc Topology Routing
+                                Wireless Networks & Ad-Hoc Topology
                             </div>
                             <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 shadow-sm flex items-center gap-2.5">
                                 <div class="w-6 h-6 rounded-lg bg-indigo-500/10 text-indigo-600 flex items-center justify-center"><i class="fa-solid fa-cubes text-[10px]"></i></div>
@@ -256,6 +292,7 @@
                     </div>
                 </div>
 
+                <!-- Right JSON Code Terminal widget alignment area -->
                 <div class="lg:col-span-5 w-full">
                     <div class="w-full bg-slate-900 dark:bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl relative">
                         <div class="bg-slate-950/80 border-b border-slate-800/60 h-11 px-4 flex items-center justify-between">
@@ -306,6 +343,7 @@
         </div>
     </section>
 
+    <!-- Credentials Section -->
     <section id="education" class="py-16">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16 reveal-element">
@@ -339,6 +377,7 @@
         </div>
     </section>
 
+    <!-- Publications Section -->
     <section id="publications" class="py-16">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16 reveal-element">
@@ -383,6 +422,7 @@
         </div>
     </section>
 
+    <!-- Workshops Section -->
     <section id="workshops" class="py-16">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 reveal-element">
@@ -460,6 +500,7 @@
         </div>
     </section>
 
+    <!-- Subjects Handled Section -->
     <section id="subjects" class="py-16 mb-12">
         <div class="max-w-5xl mx-auto px-6">
             <div class="text-center mb-16 reveal-element">
@@ -468,6 +509,7 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Subject Card 1 -->
                 <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
                     <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
                         <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
@@ -484,6 +526,7 @@
                     </div>
                 </div>
 
+                <!-- Subject Card 2 -->
                 <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
                     <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
                         <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
@@ -500,6 +543,7 @@
                     </div>
                 </div>
 
+                <!-- Subject Card 3 -->
                 <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
                     <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
                         <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
@@ -516,6 +560,7 @@
                     </div>
                 </div>
 
+                <!-- Subject Card 4 -->
                 <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
                     <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
                         <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
@@ -532,6 +577,7 @@
                     </div>
                 </div>
 
+                <!-- Subject Card 5 -->
                 <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
                     <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
                         <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
@@ -548,6 +594,7 @@
                     </div>
                 </div>
 
+                <!-- Subject Card 6 -->
                 <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
                     <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
                         <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
@@ -567,6 +614,7 @@
         </div>
     </section>
 
+    <!-- Integrated Contact Grid -->
     <section id="contact" class="py-16 border-t border-slate-200/30 dark:border-slate-800/30 mb-24">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12 reveal-element">
@@ -576,6 +624,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
+                <!-- Left: Official Contact Channels Card -->
                 <div class="lg:col-span-4 space-y-4 w-full">
                     <div class="reveal-element glass-card p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 space-y-6">
                         <h3 class="text-sm font-extrabold uppercase tracking-widest text-slate-400">Official Communication Channels</h3>
@@ -605,6 +654,7 @@
                     </div>
                 </div>
 
+                <!-- Right: High-Performance native Client Form Interface Grid -->
                 <div class="lg:col-span-8 w-full">
                     <form id="contact-form" class="reveal-element glass-card p-6 sm:p-8 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 space-y-5 shadow-xl">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -636,14 +686,16 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="bg-white dark:bg-slate-950 text-slate-400 dark:text-slate-600 border-t border-slate-200/60 dark:border-slate-900 py-12 text-center text-xs font-semibold tracking-wide transition-colors duration-500">
         <div class="max-w-6xl mx-auto px-6 space-y-2">
             <p class="text-slate-600 dark:text-slate-400 text-sm">&copy; 2026 Gunturu Venkateswarlu. All Academic Rights Reserved.</p>
         </div>
     </footer>
 
+    <!-- Core Systems Controller Logic -->
     <script>
-        // --- REMOVED EMAILJS: NEW ZERO-COMPLEXITY NATIVE MAILTO DISPATCH PIPELINE ---
+        // --- NATIVE MAILTO DISPATCH PIPELINE ---
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault();
             
@@ -652,10 +704,7 @@
             const customSubject = document.getElementById('msg_subject').value;
             const messageBody = document.getElementById('user_message').value;
 
-            // Pre-compile professional message structural components securely
             const mailtoUri = `mailto:${targetMail}?subject=${encodeURIComponent(customSubject)}&body=${encodeURIComponent("Sender Name: " + senderName + "\n\n" + messageBody)}`;
-            
-            // Instantly open system native client composer wrapper
             window.location.href = mailtoUri;
         });
 
@@ -706,14 +755,14 @@
         }
 
         // --- OPTIMIZED ADVANCED INTERSECTION OBSERVER & SCROLLSPY ---
-        const sections = document.querySelectorAll('section, header');
+        const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
 
         const spyAndRevealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
 
-                if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
                     const id = entry.target.getAttribute('id');
                     if(!id) return;
                     navLinks.forEach(link => {
@@ -757,7 +806,7 @@
             }
         });
 
-        // --- ADVANCED ADJUSTED SCROLL-AWARE THREE.JS BACKGROUND ---
+        // --- THREE.JS GRAPH BACKGROUND ENGINE ---
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -830,7 +879,6 @@
             targetY = (e.clientY - window.innerHeight / 2) * 0.008;
         });
 
-        // Monitor scroll momentum parameters to apply dynamic angular acceleration offsets
         let lastScrollY = window.scrollY;
         let scrollVelocity = 0;
         window.addEventListener('scroll', () => {
@@ -886,11 +934,9 @@
             mouseX += (targetX - mouseX) * 0.05;
             mouseY += (targetY - mouseY) * 0.05;
 
-            // Apply scroll momentum dampener calculation offsets to rotation variables
             scene.rotation.y = mouseX + (window.scrollY * 0.0005);
             scene.rotation.x = -mouseY;
 
-            // Decay scroll velocity over time frames smoothly
             scrollVelocity *= 0.95;
 
             renderer.render(scene, camera);
@@ -899,4 +945,4 @@
         animate();
     </script>
 </body>
-</html>
+</html>g
