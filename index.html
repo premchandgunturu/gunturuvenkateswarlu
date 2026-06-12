@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunturu Venkateswarlu | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-mono-code { font-family: 'Fira Code', monospace; }
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Premium Glassmorphism Design System */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04), inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+            transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.65);
+            border-color: rgba(37, 99, 235, 0.2);
+            box-shadow: 0 12px 40px 0 rgba(37, 99, 235, 0.08);
+        }
+        .dark .glass-card:hover {
+            background: rgba(15, 23, 42, 0.65);
+            border-color: rgba(59, 130, 246, 0.2);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        /* High-Performance Smooth Scroll Reveal Transitions */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(40px) scale(0.97);
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform, opacity;
+        }
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* 3D Card Flippers */
+        .perspective-container { perspective: 1200px; }
+        .card-inner {
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+        .card-inner.is-flipped { transform: rotateY(180deg); }
+        .card-front, .card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .card-back { transform: rotateY(180deg); }
+
+        /* Navigation Links Highlight Active Configurations */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #2563eb;
+            transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), left 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            border-radius: 99px;
+        }
+        .dark .nav-link::after { background: #60a5fa; }
+        .nav-link.active-nav { color: #2563eb !important; }
+        .dark .nav-link.active-nav { color: #60a5fa !important; }
+        .nav-link.active-nav::after { width: 60%; left: 20%; }
+
+        /* Glowing Headline Tokenization styles */
+        .glow-headline {
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
+        }
+        .dark .glow-headline {
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.35);
+        }
+        
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { color: transparent }
+            50% { color: #3b82f6; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased overflow-x-hidden transition-colors duration-500">
+
+    <div id="canvas-container"></div>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-slate-200/40 dark:border-slate-800/40 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            
+            <a href="#" class="flex items-center gap-3 font-extrabold text-lg tracking-tight text-slate-900 dark:text-white group">
+                <div class="relative w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-code text-xs"></i>
+                </div>
+                <span class="text-slate-900 dark:text-white font-extrabold text-lg tracking-tight">G. Venkateswarlu</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-1 bg-slate-100/60 dark:bg-slate-900/40 border border-slate-200/30 dark:border-slate-800/30 p-1.5 rounded-2xl">
+                <a href="#home" class="nav-link text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Home</a>
+                <a href="#about" class="nav-link text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">About</a>
+                <a href="#education" class="nav-link text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Education</a>
+                <a href="#publications" class="nav-link text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Publications</a>
+                <a href="#workshops" class="nav-link text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Workshops</a>
+                <a href="#subjects" class="nav-link text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Subjects</a>
+                <a href="#contact" class="nav-link text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Contact</a>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all focus:outline-none shadow-sm" aria-label="Toggle Theme Mode">
+                    <i id="theme-icon" class="fa-solid fa-moon text-sm"></i>
+                </button>
+                <button id="menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 text-slate-700 dark:text-slate-200 focus:outline-none" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars-staggered text-sm"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 py-4 space-y-1.5 shadow-xl text-xs font-bold uppercase tracking-wider">
+            <a href="#home" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900">Home</a>
+            <a href="#about" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900">About</a>
+            <a href="#education" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900">Education</a>
+            <a href="#publications" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900">Publications</a>
+            <a href="#workshops" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900">Workshops</a>
+            <a href="#subjects" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900">Subjects Handled</a>
+            <a href="#contact" class="block px-4 py-3 rounded-xl bg-blue-600 text-white text-center shadow-md">Contact Info</a>
+        </div>
+    </nav>
+
+    <section id="home" class="py-12 lg:py-24 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="reveal-element grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="space-y-4">
+                        <span class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-2xl shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse"></span> ACE Engineering Academy
+                        </span>
+                        
+                        <h1 id="typing-heading" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15] glow-headline typing-cursor min-h-[60px] lg:min-h-[110px]">
+                            </h1>
+
+                        <div class="h-px w-20 bg-blue-600 dark:bg-blue-400 mx-auto lg:mx-0"></div>
+
+                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                            Senior computer science academician with an expansive background managing advanced distributed systems architecture. Specializing in computer network topology optimizations and pedagogical engineering instruction.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                        <a href="#contact" class="h-11 px-5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 font-bold transition-all flex items-center gap-2 text-sm shadow-md">
+                            Connect Now <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </a>
+                        <a href="#publications" class="h-11 px-5 rounded-xl border border-slate-300 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900 font-bold transition-all flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-book-open text-xs"></i> View Research Papers
+                        </a>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200/50 dark:border-slate-800/50 max-w-xs mx-auto lg:mx-0 flex items-center justify-center lg:justify-start gap-5">
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Academic Networks:</span>
+                        <div class="flex items-center gap-3.5 text-slate-500 dark:text-slate-400 text-base">
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 transform hover:-translate-y-0.5 transition-all"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#" class="hover:text-slate-900 dark:hover:text-white transform hover:-translate-y-0.5 transition-all"><i class="fa-brands fa-github"></i></a>
+                            <a href="#" class="hover:text-emerald-600 dark:hover:text-emerald-400 transform hover:-translate-y-0.5 transition-all"><i class="fa-brands fa-orcid"></i></a>
+                            <a href="#" class="hover:text-blue-500 dark:hover:text-blue-300 transform hover:-translate-y-0.5 transition-all"><i class="fa-solid fa-graduation-cap"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 w-full flex flex-col items-center lg:items-end gap-5">
+                    <div class="relative w-60 h-76 sm:w-64 sm:h-84 group">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-[2rem] transform rotate-6 scale-95 opacity-20 group-hover:rotate-12 transition-all duration-500"></div>
+                        <div class="absolute inset-0 border border-blue-500/20 rounded-[2rem] transform -rotate-3 scale-100 opacity-40 group-hover:rotate-0 transition-all duration-500"></div>
+                        
+                        <div class="w-full h-full rounded-[2rem] overflow-hidden border-4 border-white dark:border-slate-900 shadow-2xl bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdSz_lLkUit2HinZ5T8kuDxjK_y1McXsSYEA&s" alt="Gunturu Venkateswarlu Profile Photograph" class="w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105">
+                        </div>
+                    </div>
+
+                    <div class="w-60 sm:w-64 bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-800/60 rounded-2xl p-4 shadow-xl text-center lg:text-left backdrop-blur-md">
+                        <h2 class="text-base font-extrabold text-slate-900 dark:text-white leading-tight">Prof. Gunturu Venkateswarlu</h2>
+                        <div class="flex items-center justify-center lg:justify-start gap-1.5 mt-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">ACE Engineering Academy</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 border-t border-slate-200/30 dark:border-slate-800/30">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="reveal-element grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="space-y-3">
+                        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">About Me</h2>
+                        <div class="w-12 h-1.5 bg-blue-600 mx-auto lg:mx-0 mt-4 rounded-full shadow-sm"></div>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed font-medium text-sm sm:text-base">
+                        Currently operating within the computer engineering instruction domains at <span class="text-blue-600 dark:text-blue-400 font-bold">ACE Engineering Academy</span>, my primary pedagogical objective centers on securing communications protocols and computational efficiency parameters.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed font-medium text-sm sm:text-base">
+                        Over an academic tenure spanning <span class="text-slate-900 dark:text-white font-bold bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">18 years of professional experience</span>, I have directed laboratory architectures and comprehensive university instruction, supporting student tracks through complex layers of network engineering designs.
+                    </p>
+                    
+                    <div class="space-y-3 pt-2 text-left">
+                        <h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">Core Curricular Domains</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 shadow-sm flex items-center gap-2.5">
+                                <div class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center"><i class="fa-solid fa-wifi text-[10px]"></i></div>
+                                Wireless Networks & Ad-Hoc Topology Routing
+                            </div>
+                            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 shadow-sm flex items-center gap-2.5">
+                                <div class="w-6 h-6 rounded-lg bg-indigo-500/10 text-indigo-600 flex items-center justify-center"><i class="fa-solid fa-cubes text-[10px]"></i></div>
+                                Blockchain Ledger Architecture
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 w-full">
+                    <div class="w-full bg-slate-900 dark:bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl relative">
+                        <div class="bg-slate-950/80 border-b border-slate-800/60 h-11 px-4 flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80 inline-block"></span>
+                            </div>
+                            <span class="text-[10px] font-mono-code text-slate-500 font-medium tracking-tight">faculty_matrix.json</span>
+                            <i class="fa-solid fa-terminal text-[10px] text-slate-600"></i>
+                        </div>
+
+                        <div class="bg-slate-900 border-b border-slate-800/40 px-2 pt-2 flex text-[11px] font-mono-code gap-1">
+                            <button onclick="switchTerminalTab('overview')" id="tab-overview" class="px-3 py-1.5 rounded-t-xl bg-slate-950 text-blue-400 border-t border-x border-slate-800/60 font-semibold focus:outline-none transition-all">Overview</button>
+                            <button onclick="switchTerminalTab('research')" id="tab-research" class="px-3 py-1.5 rounded-t-xl text-slate-500 hover:text-slate-300 font-semibold focus:outline-none transition-all">Research</button>
+                            <button onclick="switchTerminalTab('credentials')" id="tab-credentials" class="px-3 py-1.5 rounded-t-xl text-slate-500 hover:text-slate-300 font-semibold focus:outline-none transition-all">History</button>
+                        </div>
+
+                        <div class="p-5 font-mono-code text-xs sm:text-[13px] leading-relaxed min-h-[160px] text-left flex flex-col justify-center">
+                            <div id="content-overview" class="space-y-1 text-slate-400">
+                                <p><span class="text-blue-500 font-medium">const</span> professor = {</p>
+                                <p class="pl-4">name: <span class="text-emerald-400">"Gunturu Venkateswarlu"</span>,</p>
+                                <p class="pl-4">institution: <span class="text-emerald-400">"ACE Engineering Academy"</span>,</p>
+                                <p class="pl-4">experience: <span class="text-amber-400">"18 Years"</span>,</p>
+                                <p class="pl-4">status: <span class="text-purple-400">"Active_Faculty"</span></p>
+                                <p>};</p>
+                            </div>
+
+                            <div id="content-research" class="space-y-1 text-slate-400 hidden">
+                                <p><span class="text-blue-500 font-medium">const</span> focus = [</p>
+                                <p class="pl-4 text-emerald-400">"Wireless Networks",</p>
+                                <p class="pl-4 text-emerald-400">"Blockchain Technologies",</p>
+                                <p class="pl-4 text-emerald-400">"Ad-Hoc Protocols (MANETs)"</p>
+                                <p>];</p>
+                            </div>
+
+                            <div id="content-credentials" class="space-y-1 text-slate-400 hidden">
+                                <p><span class="text-blue-500 font-medium">const</span> degrees = {</p>
+                                <p class="pl-4">mtech: <span class="text-emerald-400">"CSE (JNTU Kakinada)"</span>,</p>
+                                <p class="pl-4">btech: <span class="text-emerald-400">"CSIT (JNTU Hyderabad)"</span></p>
+                                <p>};</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="py-16">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-element">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">Academic Credentials</h2>
+                <div class="w-12 h-1.5 bg-blue-600 mx-auto mt-4 rounded-full shadow-sm shadow-blue-500/50"></div>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="reveal-element flex gap-5 p-6 rounded-2xl border border-slate-200/50 glass-card group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-graduation-cap text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Postgraduate Degree</span>
+                        <h3 class="font-extrabold text-slate-900 dark:text-white text-lg sm:text-xl mt-0.5">M.Tech. (Computer Science and Engineering)</h3>
+                        <p class="text-slate-500 dark:text-slate-400 font-medium mt-1">KIET, JNTU Kakinada</p>
+                    </div>
+                </div>
+
+                <div class="reveal-element flex gap-5 p-6 rounded-2xl border border-slate-200/50 glass-card group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-graduation-cap text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Undergraduate Degree</span>
+                        <h3 class="font-extrabold text-slate-900 dark:text-white text-lg sm:text-xl mt-0.5">B.Tech. (Computer Science and Information Technology)</h3>
+                        <p class="text-slate-500 dark:text-slate-400 font-medium mt-1">KIET, JNTU Hyderabad</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="publications" class="py-16">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-element">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">List of Publications</h2>
+                <div class="w-12 h-1.5 bg-blue-600 mx-auto mt-4 rounded-full shadow-sm shadow-blue-500/50"></div>
+            </div>
+
+            <div class="reveal-element glass-card p-8 rounded-3xl border border-slate-200/50 transition-all group">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                    <span class="bg-blue-50 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/40 text-blue-700 dark:text-blue-400 text-xs font-bold px-3 py-1.5 rounded-xl shadow-sm">
+                        International Journal Paper
+                    </span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-xl">
+                        <i class="fa-regular fa-calendar-days text-slate-400"></i> December 2013
+                    </span>
+                </div>
+                
+                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mb-3 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                    Simulation of POR in Unfailing Data Delivery for Highly Self-Motivated MANETs
+                </h3>
+                
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 font-medium leading-relaxed">
+                    Published in: <span class="text-slate-900 dark:text-slate-200 font-bold">IJCST Journal Architecture</span> &bull; Volume no-4 (2013) Issue No.4
+                </p>
+                
+                <div class="pt-5 border-t border-slate-200/60 dark:border-slate-800/60 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500 font-semibold">
+                    <div>
+                        <span class="font-extrabold text-slate-400 uppercase tracking-widest mr-1">ISSN:</span> 
+                        <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-1 rounded-md">0976-8491</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <a href="http://ijcst.com/?page_id=4896" target="_blank" class="h-9 px-4 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 font-bold transition-all flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i> Publisher Index
+                        </a>
+                        <a href="mailto:g.venkateswarlu@email.com?subject=Inquiry%20Regarding%20IJCST%20MANET%20Research%20Paper" class="h-9 px-4 rounded-xl bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 font-bold transition-all flex items-center gap-1.5 shadow-md">
+                            <i class="fa-solid fa-envelope"></i> Request Document Text
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="workshops" class="py-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-element">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">Workshops & Certifications</h2>
+                <div class="w-12 h-1.5 bg-blue-600 mx-auto mt-4 rounded-full shadow-sm shadow-blue-500/50"></div>
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div class="reveal-element glass-card p-6 rounded-2xl border border-slate-200/50 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 shadow-sm font-extrabold text-xs">22'</div>
+                        <h3 class="font-extrabold text-slate-900 dark:text-white text-base mb-3 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">Block Chain & Distributed Ledger Technologies</h3>
+                    </div>
+                    <div class="text-xs text-slate-500 border-t border-slate-200/60 dark:border-slate-800/60 pt-4 mt-4 font-semibold space-y-1">
+                        <p class="text-slate-800 dark:text-slate-200 font-bold">IIIT Hyderabad</p>
+                        <p class="flex items-center gap-1 text-slate-400"><i class="fa-solid fa-location-dot"></i> Hyderabad, India</p>
+                    </div>
+                </div>
+
+                <div class="reveal-element glass-card p-6 rounded-2xl border border-slate-200/50 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 shadow-sm font-extrabold text-xs">13'</div>
+                        <h3 class="font-extrabold text-slate-900 dark:text-white text-base mb-3 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">Network Simulator 2 (NS-2 Configuration)</h3>
+                    </div>
+                    <div class="text-xs text-slate-500 border-t border-slate-200/60 dark:border-slate-800/60 pt-4 mt-4 font-semibold space-y-1">
+                        <p class="text-slate-800 dark:text-slate-200 font-bold">IIIT Pune</p>
+                        <p class="flex items-center gap-1 text-slate-400"><i class="fa-solid fa-location-dot"></i> Pune, India</p>
+                    </div>
+                </div>
+
+                <div class="reveal-element glass-card p-6 rounded-2xl border border-slate-200/50 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 shadow-sm font-extrabold text-xs">12'</div>
+                        <h3 class="font-extrabold text-slate-900 dark:text-white text-base mb-3 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">Pattern Recognition – Principles & Applications</h3>
+                    </div>
+                    <div class="text-xs text-slate-500 border-t border-slate-200/60 dark:border-slate-800/60 pt-4 mt-4 font-semibold space-y-1">
+                        <p class="text-slate-800 dark:text-slate-200 font-bold">KIET Group of Institutions</p>
+                        <p class="flex items-center gap-1 text-slate-400"><i class="fa-solid fa-location-dot"></i> Kakinada, India</p>
+                    </div>
+                </div>
+
+                <div class="reveal-element glass-card p-6 rounded-2xl border border-slate-200/50 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 shadow-sm font-extrabold text-xs">11'</div>
+                        <h3 class="font-extrabold text-slate-900 dark:text-white text-base mb-3 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">CICTT (Cambridge International Certification)</h3>
+                    </div>
+                    <div class="text-xs text-slate-500 border-t border-slate-200/60 dark:border-slate-800/60 pt-4 mt-4 font-semibold space-y-1">
+                        <p class="text-slate-800 dark:text-slate-200 font-bold">Wipro Mission10x</p>
+                        <p class="flex items-center gap-1 text-slate-400"><i class="fa-solid fa-location-dot"></i> Kakinada, India</p>
+                    </div>
+                </div>
+
+                <div class="reveal-element glass-card p-6 rounded-2xl border border-slate-200/50 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 shadow-sm font-extrabold text-xs">09'</div>
+                        <h3 class="font-extrabold text-slate-900 dark:text-white text-base mb-3 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">High Impact Teaching Skills</h3>
+                    </div>
+                    <div class="text-xs text-slate-500 border-t border-slate-200/60 dark:border-slate-800/60 pt-4 mt-4 font-semibold space-y-1">
+                        <p class="text-slate-800 dark:text-slate-200 font-bold">Wipro Mission10x</p>
+                        <p class="flex items-center gap-1 text-slate-400"><i class="fa-solid fa-location-dot"></i> Kakinada, India</p>
+                    </div>
+                </div>
+
+                <div class="reveal-element glass-card p-6 rounded-2xl border border-slate-200/50 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 shadow-sm font-extrabold text-xs">10'</div>
+                        <h3 class="font-extrabold text-slate-900 dark:text-white text-base mb-3 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">Mission10x Learning Approach Framework</h3>
+                    </div>
+                    <div class="text-xs text-slate-500 border-t border-slate-200/60 dark:border-slate-800/60 pt-4 mt-4 font-semibold space-y-1">
+                        <p class="text-slate-800 dark:text-slate-200 font-bold">Wipro Mission10x</p>
+                        <p class="flex items-center gap-1 text-slate-400"><i class="fa-solid fa-location-dot"></i> Kakinada, India</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="subjects" class="py-16 mb-12">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-element">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">Subjects Handled</h2>
+                <div class="w-12 h-1.5 bg-blue-600 mx-auto mt-4 rounded-full shadow-sm shadow-blue-500/50"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
+                    <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
+                        <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-network-wired text-lg"></i></div>
+                                <span class="font-extrabold text-slate-900 dark:text-white text-sm sm:text-base block">Computer Networks</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-300 dark:text-slate-600 transform group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-slate-900 border border-slate-800 text-white p-5 rounded-2xl flex flex-col justify-center shadow-xl">
+                            <p class="font-extrabold text-blue-400 text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1.5"><i class="fa-solid fa-gear fa-spin"></i> Module Syllabus:</p>
+                            <p class="text-slate-300 text-xs leading-relaxed font-medium">Routing Algorithms, Multi-layer Topologies, TCP/IP Suite, and MANET Architecture Simulation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
+                    <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
+                        <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-sliders text-lg"></i></div>
+                                <span class="font-extrabold text-slate-900 dark:text-white text-sm sm:text-base block">Operating Systems</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-300 dark:text-slate-600 transform group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-slate-900 border border-slate-800 text-white p-5 rounded-2xl flex flex-col justify-center shadow-xl">
+                            <p class="font-extrabold text-blue-400 text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1.5"><i class="fa-solid fa-gear fa-spin"></i> Module Syllabus:</p>
+                            <p class="text-slate-300 text-xs leading-relaxed font-medium">Process Scheduling, Virtual Memory Configurations, Kernel Semaphores, and Thread Control.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
+                    <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
+                        <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-mobile-screen-button text-lg"></i></div>
+                                <span class="font-extrabold text-slate-900 dark:text-white text-sm sm:text-base block">Mobile Computing</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-300 dark:text-slate-600 transform group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-slate-900 border border-slate-800 text-white p-5 rounded-2xl flex flex-col justify-center shadow-xl">
+                            <p class="font-extrabold text-blue-400 text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1.5"><i class="fa-solid fa-gear fa-spin"></i> Module Syllabus:</p>
+                            <p class="text-slate-300 text-xs leading-relaxed font-medium">Wireless Infrastructure Topologies, GSM Data Configuration Routing, and Node Handoff Loops.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
+                    <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
+                        <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-shield-halved text-lg"></i></div>
+                                <span class="font-extrabold text-slate-900 dark:text-white text-sm sm:text-base block">Information Security</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-300 dark:text-slate-600 transform group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-slate-900 border border-slate-800 text-white p-5 rounded-2xl flex flex-col justify-center shadow-xl">
+                            <p class="font-extrabold text-blue-400 text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1.5"><i class="fa-solid fa-gear fa-spin"></i> Module Syllabus:</p>
+                            <p class="text-slate-300 text-xs leading-relaxed font-medium">Cryptographic Paradigms, Symmetric/Asymmetric Block Ciphers, and Security System Audits.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
+                    <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
+                        <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-bezier-curve text-lg"></i></div>
+                                <span class="font-extrabold text-slate-900 dark:text-white text-sm sm:text-base block">Computer Graphics</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-300 dark:text-slate-600 transform group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-slate-900 border border-slate-800 text-white p-5 rounded-2xl flex flex-col justify-center shadow-xl">
+                            <p class="font-extrabold text-blue-400 text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1.5"><i class="fa-solid fa-gear fa-spin"></i> Module Syllabus:</p>
+                            <p class="text-slate-300 text-xs leading-relaxed font-medium">GPU Rendering Pipelines, Transform Vectors, Vector Matrix Clipping, and Rasterization.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="perspective-container h-32 cursor-pointer reveal-element group" onclick="toggleCard(this)">
+                    <div class="card-inner w-full h-full relative rounded-2xl shadow-sm">
+                        <div class="card-front absolute inset-0 glass-card px-6 py-5 flex items-center justify-between rounded-2xl border shadow-sm">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-microchip text-lg"></i></div>
+                                <span class="font-extrabold text-slate-900 dark:text-white text-sm sm:text-base block">Computer Org & Arch</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-300 dark:text-slate-600 transform group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-slate-900 border border-slate-800 text-white p-5 rounded-2xl flex flex-col justify-center shadow-xl">
+                            <p class="font-extrabold text-blue-400 text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1.5"><i class="fa-solid fa-gear fa-spin"></i> Module Syllabus:</p>
+                            <p class="text-slate-300 text-xs leading-relaxed font-medium">Instruction Execution Set Pipelines, Memory Cache Hierarchies, ALU, and Control Units.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 border-t border-slate-200/30 dark:border-slate-800/30 mb-24">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-12 reveal-element">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">Get In Touch</h2>
+                <div class="w-12 h-1.5 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <div class="lg:col-span-4 space-y-4 w-full">
+                    <div class="reveal-element glass-card p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 space-y-6">
+                        <h3 class="text-sm font-extrabold uppercase tracking-widest text-slate-400">Official Communication Channels</h3>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/60 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-envelope-open-text text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Email Address</h4>
+                                <a href="mailto:g.venkateswarlu@email.com" class="text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-blue-600 transition-colors block mt-0.5 break-all">g.venkateswarlu@email.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/60 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-building-columns text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Academic Head Office</h4>
+                                <p class="text-sm font-bold text-slate-800 dark:text-slate-200 mt-0.5 leading-relaxed">
+                                    ACE Engineering Academy,<br>
+                                    Hyderabad Region, TS, India
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 w-full">
+                    <form id="contact-form" class="reveal-element glass-card p-6 sm:p-8 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 space-y-5 shadow-xl">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Your Name</label>
+                                <input type="text" id="user_name" required class="w-full h-11 px-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 text-sm font-semibold transition-all">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Email Address</label>
+                                <input type="email" id="user_email" required class="w-full h-11 px-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 text-sm font-semibold transition-all">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Subject</label>
+                            <input type="text" id="msg_subject" required class="w-full h-11 px-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 text-sm font-semibold transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Message Portfolio Query</label>
+                            <textarea id="user_message" rows="4" required class="w-full p-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 text-sm font-semibold resize-none transition-all"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full h-12 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 active:scale-[0.99] transition-all shadow-md flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-paper-plane"></i> Send Official Message
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white dark:bg-slate-950 text-slate-400 dark:text-slate-600 border-t border-slate-200/60 dark:border-slate-900 py-12 text-center text-xs font-semibold tracking-wide transition-colors duration-500">
+        <div class="max-w-6xl mx-auto px-6 space-y-2">
+            <p class="text-slate-600 dark:text-slate-400 text-sm">&copy; 2026 Gunturu Venkateswarlu. All Academic Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- REMOVED EMAILJS: NEW ZERO-COMPLEXITY NATIVE MAILTO DISPATCH PIPELINE ---
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const targetMail = "g.venkateswarlu@email.com";
+            const senderName = document.getElementById('user_name').value;
+            const customSubject = document.getElementById('msg_subject').value;
+            const messageBody = document.getElementById('user_message').value;
+
+            // Pre-compile professional message structural components securely
+            const mailtoUri = `mailto:${targetMail}?subject=${encodeURIComponent(customSubject)}&body=${encodeURIComponent("Sender Name: " + senderName + "\n\n" + messageBody)}`;
+            
+            // Instantly open system native client composer wrapper
+            window.location.href = mailtoUri;
+        });
+
+        // --- NATIVE JAVASCRIPT TYPING EFFECT INTERACTION MATRIX ---
+        const txtToType = "Gunturu Venkateswarlu";
+        let typeIndex = 0;
+        const typingSpeed = 100; 
+        const headingElement = document.getElementById('typing-heading');
+
+        function executeTypingEngine() {
+            if (typeIndex < txtToType.length) {
+                headingElement.innerHTML += txtToType.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(executeTypingEngine, typingSpeed);
+            } else {
+                headingElement.classList.remove('typing-cursor');
+            }
+        }
+        window.addEventListener('DOMContentLoaded', executeTypingEngine);
+
+        // --- MOBILE NAV DROPDOWN ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+        // --- INTERACTIVE SUBJ CARD FLIP ENGINE ---
+        function toggleCard(wrapper) {
+            wrapper.querySelector('.card-inner').classList.toggle('is-flipped');
+        }
+
+        // --- HERO TERMINAL SWITCH CONFIG SYSTEM ---
+        function switchTerminalTab(tabId) {
+            const tabs = ['overview', 'research', 'credentials'];
+            tabs.forEach(t => {
+                const button = document.getElementById(`tab-${t}`);
+                const content = document.getElementById(`content-${t}`);
+                if (t === tabId) {
+                    button.classList.add('bg-slate-950', 'text-blue-400', 'border-t', 'border-x', 'border-slate-800/60');
+                    button.classList.remove('text-slate-500');
+                    content.classList.remove('hidden');
+                } else {
+                    button.classList.remove('bg-slate-950', 'text-blue-400', 'border-t', 'border-x', 'border-slate-800/60');
+                    button.classList.add('text-slate-500');
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        // --- OPTIMIZED ADVANCED INTERSECTION OBSERVER & SCROLLSPY ---
+        const sections = document.querySelectorAll('section, header');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const spyAndRevealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+                    const id = entry.target.getAttribute('id');
+                    if(!id) return;
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active-nav');
+                        } else {
+                            link.classList.remove('active-nav');
+                        }
+                    });
+                }
+            });
+        }, { threshold: [0.05, 0.2, 0.4], rootMargin: "-15% 0px -15% 0px" });
+
+        sections.forEach(sec => spyAndRevealObserver.observe(sec));
+        document.querySelectorAll('.reveal-element').forEach(el => spyAndRevealObserver.observe(el));
+
+        // --- LIGHT/DARK THEME CONFIG ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        if (currentTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            themeIcon.className = 'fa-solid fa-sun text-sm';
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.className = 'fa-solid fa-moon text-sm';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-moon text-sm';
+                localStorage.setItem('theme', 'light');
+                updateThreeJSColors('light');
+            } else {
+                document.documentElement.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-sun text-sm';
+                localStorage.setItem('theme', 'dark');
+                updateThreeJSColors('dark');
+            }
+        });
+
+        // --- ADVANCED ADJUSTED SCROLL-AWARE THREE.JS BACKGROUND ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 45;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        const particleCount = 75;
+        const maxDistance = 15; 
+        const nodesGeometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const velocities = [];
+
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 80;
+            positions[i+1] = (Math.random() - 0.5) * 80;
+            positions[i+2] = (Math.random() - 0.5) * 40;
+
+            velocities.push({
+                x: (Math.random() - 0.5) * 0.02,
+                y: (Math.random() - 0.5) * 0.02,
+                z: (Math.random() - 0.5) * 0.01
+            });
+        }
+
+        nodesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        
+        const darkThemeNodeColor = new THREE.Color(0x3b82f6);
+        const darkThemeLineColor = new THREE.Color(0x1d4ed8);
+        const lightThemeNodeColor = new THREE.Color(0x2563eb);
+        const lightThemeLineColor = new THREE.Color(0x93c5fd);
+
+        const nodesMaterial = new THREE.PointsMaterial({
+            color: localStorage.getItem('theme') === 'light' ? lightThemeNodeColor : darkThemeNodeColor, 
+            size: 0.65,
+            transparent: true,
+            opacity: 0.5
+        });
+
+        const nodeMeshSystem = new THREE.Points(nodesGeometry, nodesMaterial);
+        scene.add(nodeMeshSystem);
+
+        let lineMaterial = new THREE.LineBasicMaterial({
+            color: localStorage.getItem('theme') === 'light' ? lightThemeLineColor : darkThemeLineColor,
+            transparent: true,
+            opacity: 0.12
+        });
+
+        let lineMesh = new THREE.LineSegments(new THREE.BufferGeometry(), lineMaterial);
+        scene.add(lineMesh);
+
+        function updateThreeJSColors(mode) {
+            if (mode === 'light') {
+                nodesMaterial.color.set(lightThemeNodeColor);
+                lineMaterial.color.set(lightThemeLineColor);
+                lineMaterial.opacity = 0.25;
+            } else {
+                nodesMaterial.color.set(darkThemeNodeColor);
+                lineMaterial.color.set(darkThemeLineColor);
+                lineMaterial.opacity = 0.12;
+            }
+        }
+
+        let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+        window.addEventListener('mousemove', (e) => {
+            targetX = (e.clientX - window.innerWidth / 2) * 0.008;
+            targetY = (e.clientY - window.innerHeight / 2) * 0.008;
+        });
+
+        // Monitor scroll momentum parameters to apply dynamic angular acceleration offsets
+        let lastScrollY = window.scrollY;
+        let scrollVelocity = 0;
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            scrollVelocity = Math.abs(currentScrollY - lastScrollY) * 0.08;
+            lastScrollY = currentScrollY;
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const coords = nodeMeshSystem.geometry.attributes.position.array;
+            const linkPositions = [];
+
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                coords[i3] += velocities[i].x;
+                coords[i3+1] += velocities[i].y;
+                coords[i3+2] += velocities[i].z;
+
+                if (coords[i3] < -40 || coords[i3] > 40) velocities[i].x *= -1;
+                if (coords[i3+1] < -40 || coords[i3+1] > 40) velocities[i].y *= -1;
+                if (coords[i3+2] < -20 || coords[i3+2] > 20) velocities[i].z *= -1;
+
+                for (let j = i + 1; j < particleCount; j++) {
+                    const j3 = j * 3;
+                    const dx = coords[i3] - coords[j3];
+                    const dy = coords[i3+1] - coords[j3+1];
+                    const dz = coords[i3+2] - coords[j3+2];
+                    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+                    if (dist < maxDistance) {
+                        linkPositions.push(coords[i3], coords[i3+1], coords[i3+2]);
+                        linkPositions.push(coords[j3], coords[j3+1], coords[j3+2]);
+                    }
+                }
+            }
+
+            nodeMeshSystem.geometry.attributes.position.needsUpdate = true;
+
+            scene.remove(lineMesh);
+            const lineGeometry = new THREE.BufferGeometry();
+            lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linkPositions, 3));
+            lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+            scene.add(lineMesh);
+
+            mouseX += (targetX - mouseX) * 0.05;
+            mouseY += (targetY - mouseY) * 0.05;
+
+            // Apply scroll momentum dampener calculation offsets to rotation variables
+            scene.rotation.y = mouseX + (window.scrollY * 0.0005);
+            scene.rotation.x = -mouseY;
+
+            // Decay scroll velocity over time frames smoothly
+            scrollVelocity *= 0.95;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
